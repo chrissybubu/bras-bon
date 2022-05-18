@@ -1,17 +1,17 @@
-let _1 = 90
-let _2 = 90
-let mode: string = 1
+let first = 90
+let second = 90
+let mode = true
 basic.forever(function () {
     if (input.buttonIsPressed(Button.AB)) {
-        mode = 2
+        mode = false
     }
 })
 basic.forever(function () {
-    PCA9685.setServoPosition(PCA9685.ServoNum.Servo1, 0, _1)
-    PCA9685.setServoPosition(PCA9685.ServoNum.Servo2, 0, _2)
+    PCA9685.setServoPosition(PCA9685.ServoNum.Servo2, second, 64)
+    PCA9685.setServoPosition(PCA9685.ServoNum.Servo1, first, 64)
 })
 basic.forever(function () {
-    if (mode == "2") {
+    if (mode == false) {
         basic.showLeds(`
             . # # # .
             . . . # .
@@ -20,15 +20,15 @@ basic.forever(function () {
             . # # # .
             `)
         if (input.buttonIsPressed(Button.A)) {
-            _1 += -5
+            second += -15
         }
         if (input.buttonIsPressed(Button.B)) {
-            _1 += 5
+            second += 15
         }
     }
 })
 basic.forever(function () {
-    if (mode == "1") {
+    if (mode == true) {
         basic.showLeds(`
             . . # . .
             . # # . .
@@ -36,11 +36,11 @@ basic.forever(function () {
             . . # . .
             . # # # .
             `)
-        if (input.buttonIsPressed(Button.A)) {
-            _1 += -5
-        }
-        if (input.buttonIsPressed(Button.B)) {
-            _1 += 5
-        }
+    }
+    if (input.buttonIsPressed(Button.A)) {
+        first += -15
+    }
+    if (input.buttonIsPressed(Button.B)) {
+        first += 15
     }
 })
